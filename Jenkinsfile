@@ -6,8 +6,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhubCred', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
                     script {
-                        // Authenticate with Docker Hub
-                        sh "echo \${DOCKERHUB_PASSWORD} | docker login --username \${DOCKERHUB_USERNAME} --password-stdin"
+                        // Authenticate with Docker Hub using withCredentials
+                        sh "docker login --username \${DOCKERHUB_USERNAME} --password \${DOCKERHUB_PASSWORD}"
 
                         // Build and push the Docker image
                         sh "docker build -t moelzedy/cicddemo ."
